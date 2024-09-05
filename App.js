@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   sectionTitle: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold',
   },
   items: {
@@ -79,11 +79,11 @@ const styles = StyleSheet.create({
   },
   writeTaskWrapper: {
     position: 'absolute',
-    bottom: 60,
+    bottom: 10,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   input: {
     paddingVertical: 15,
@@ -105,5 +105,7 @@ const styles = StyleSheet.create({
     borderColor: 'green',
     borderWidth: 1,
   },
-  addText: {}
+  addText: {
+    fontSize: 30,
+  }
 });

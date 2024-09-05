@@ -15,14 +15,13 @@ const Task = (props) => {
 
 const styles = StyleSheet.create({
     items: {
-        backgroundColor: '#fff',
+        backgroundColor: 'white',
         padding: 15,
         borderRadius: 10,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         marginBottom: 20,
-
     },
     itemLeft: {
         flexDirection: 'row',
@@ -36,14 +35,15 @@ const styles = StyleSheet.create({
         opacity: 0.4,
         borderRadius: 5,
         marginRight: 15,
-
+        fontSize: 24,
     },
     itemText: {
         maxWidth: '80%',
+        fontSize: 20,
     },
     circular: {
-        width: 12,
-        height: 12,
+        width: 20,
+        height: 20,
         borderColor: 'green',
         borderWidth: 2,
         borderRadius: 5,
