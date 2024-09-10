@@ -64,7 +64,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E8EAED',
+    backgroundColor: '#ecded5',
   },
   todoWrapper: {
     paddingTop: 80,
@@ -73,6 +73,8 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 30,
     fontWeight: 'bold',
+    textTransform: 'uppercase',
+    color: '#865c4e',
   },
   items: {
     marginTop: 30,
@@ -88,22 +90,22 @@ const styles = StyleSheet.create({
   input: {
     paddingVertical: 15,
     paddingHorizontal: 15,
-    backgroundColor: '#fff',
+    backgroundColor: '#f6ae63',
     borderRadius: 60,
-    borderColor: 'green',
-    borderWidth: 1,
+    borderColor: '#865c4e',
+    borderWidth: 2,
     width: 250,
 
   },
   addWrapper: {
     width: 60,
     height: 60,
-    borderColor: 'green',
+    backgroundColor: '#f6ae63',
     borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: 'green',
-    borderWidth: 1,
+    borderColor: '#865c4e',
+    borderWidth: 2,
   },
   addText: {
     fontSize: 30,
