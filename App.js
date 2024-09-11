@@ -3,55 +3,53 @@ import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text,
 import Task from './components/task';
 
 export default function App() {
-  const [task, setTask] = useState();
+  const [task, setTask] = useState('');
   const [taskItems, setTaskItems] = useState([]);
 
-  const HandleAddTask = () => {
-    Keyboard.dismiss();
-    setTaskItems([...taskItems, task])
-    setTask(null);
-  }
+  const handleAddTask = () => {
+    if (task) {
+      Keyboard.dismiss();
+      setTaskItems([...taskItems, task]);
+      setTask('');
+    }
+  };
 
-  const completeTask = (index) => {
+  const handleDeleteTask = (index) => {
     let itemsCopy = [...taskItems];
-    itemsCopy.splice (index, 1);
-    setTaskItems(itemsCopy)
-  }
+    itemsCopy.splice(index, 1);
+    setTaskItems(itemsCopy);
+  };
 
   return (
     <View style={styles.container}>
       <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1
-        }}
+        contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps='handled'
       >
-      <View style={styles.todoWrapper}>
-        <Text style={styles.sectionTitle}>Todo List</Text>
-
-        <View style={styles.items}>
-
-          {
-            taskItems.map((item, index) => {
-              return (
-                <TouchableOpacity key= {index} onPress={() => completeTask(index)}>
-                  <Task  text={item} />
-                </TouchableOpacity>
-              )
-            })
-          }
-          
+        <View style={styles.todoWrapper}>
+          <Text style={styles.sectionTitle}>Todo List</Text>
+          <View style={styles.items}>
+            {taskItems.map((item, index) => (
+              <Task
+                key={index}
+                text={item}
+                onDelete={() => handleDeleteTask(index)}
+              />
+            ))}
+          </View>
         </View>
-      </View>
       </ScrollView>
-
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "android" ? "padding" : "height"}
-      style={styles.writeTaskWrapper}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "android" ? "padding" : "height"}
+        style={styles.writeTaskWrapper}
       >
-        <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)}/>
-
-        <TouchableOpacity onPress={() => HandleAddTask()}>
+        <TextInput
+          style={styles.input}
+          placeholder={'Write a task'}
+          value={task}
+          onChangeText={text => setTask(text)}
+        />
+        <TouchableOpacity onPress={handleAddTask}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
@@ -95,7 +93,6 @@ const styles = StyleSheet.create({
     borderColor: '#865c4e',
     borderWidth: 2,
     width: 250,
-
   },
   addWrapper: {
     width: 60,

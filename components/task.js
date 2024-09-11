@@ -6,24 +6,30 @@ const Task = (props) => {
 
     const handleCompleteTask = () => {
         setIsCompleted(!isCompleted);
-        if (isCompleted) {
-            props.onDeleteTask();
-        }
+    };
+
+    const handleDeleteTask = () => {
+        props.onDelete();
     };
 
     return (
         <View style={styles.items}>
-            <View style={styles.itemLeft}>
+            <TouchableOpacity onPress={handleCompleteTask} style={styles.checkboxWrapper}>
+                <View style={[styles.checkbox, isCompleted && styles.checkboxChecked]}>
+                    {isCompleted && <Text style={styles.checkmark}>✔</Text>}
+                </View>
+            </TouchableOpacity>
+            <View style={styles.itemTextWrapper}>
                 <Text style={[styles.itemText, isCompleted && styles.itemTextCompleted]}>
                     {props.text}
                 </Text>
             </View>
-            <TouchableOpacity onPress={handleCompleteTask}>
-                <View style={[styles.circular, isCompleted && styles.circularCompleted]}></View>
+            <TouchableOpacity onPress={handleDeleteTask} style={styles.deleteButton}>
+                <Text style={styles.deleteButtonText}>Delete</Text>
             </TouchableOpacity>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     items: {
@@ -37,10 +43,30 @@ const styles = StyleSheet.create({
         borderColor: '#865c4e',
         borderWidth: 2,
     },
-    itemLeft: {
+    checkboxWrapper: {
         flexDirection: 'row',
         alignItems: 'center',
-        flexWrap: 'wrap',
+    },
+    checkbox: {
+        width: 25, 
+        height: 25, 
+        borderColor: '#865c4e',
+        borderWidth: 2,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F6AE63',
+    },
+    checkboxChecked: {
+        backgroundColor: '#865c4e',
+    },
+    checkmark: {
+        color: 'red',
+        fontSize: 15, 
+    },
+    itemTextWrapper: {
+        flex: 1,
+        marginLeft: 10,
     },
     itemText: {
         maxWidth: '100%',
@@ -50,16 +76,18 @@ const styles = StyleSheet.create({
         textDecorationLine: 'line-through',
         color: '#865c4e',
     },
-    circular: {
-        width: 20,
-        height: 20,
-        borderColor: '#865c4e',
-        borderWidth: 2,
+    deleteButton: {
+        backgroundColor: '#d9534f',
+        paddingVertical: 5,
+        paddingHorizontal: 10,
         borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    circularCompleted: {
-        backgroundColor: '#865c4e',
-    }
+    deleteButtonText: {
+        color: 'white',
+        fontSize: 16,
+    },
 });
 
 export default Task;
