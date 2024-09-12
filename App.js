@@ -5,20 +5,25 @@ import Task from './components/task';
 export default function App() {
   const [task, setTask] = useState('');
   const [taskItems, setTaskItems] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleAddTask = () => {
     if (task) {
       Keyboard.dismiss();
-      setTaskItems([...taskItems, task]);
+      setTaskItems([...taskItems, { text: task, key: Date.now().toString() }]);
       setTask('');
     }
   };
 
-  const handleDeleteTask = (index) => {
-    let itemsCopy = [...taskItems];
-    itemsCopy.splice(index, 1);
-    setTaskItems(itemsCopy);
+  const handleDeleteTask = (key) => {
+    setTaskItems(taskItems.filter(item => item.key !== key));
   };
+
+  const handleEditTask = (key, newText) => {
+    setTaskItems(taskItems.map(item => item.key === key ? { ...item, text: newText } : item));
+  };
+
+  const filteredTasks = taskItems.filter(item => item.text.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
     <View style={styles.container}>
@@ -28,12 +33,19 @@ export default function App() {
       >
         <View style={styles.todoWrapper}>
           <Text style={styles.sectionTitle}>Todo List</Text>
+          <TextInput
+            style={styles.searchInput}
+            placeholder='Search tasks...'
+            value={searchQuery}
+            onChangeText={text => setSearchQuery(text)}
+          />
           <View style={styles.items}>
-            {taskItems.map((item, index) => (
+            {filteredTasks.map((item) => (
               <Task
-                key={index}
-                text={item}
-                onDelete={() => handleDeleteTask(index)}
+                key={item.key}
+                text={item.text}
+                onDelete={() => handleDeleteTask(item.key)}
+                onEdit={(newText) => handleEditTask(item.key, newText)}
               />
             ))}
           </View>
@@ -76,6 +88,15 @@ const styles = StyleSheet.create({
   },
   items: {
     marginTop: 30,
+  },
+  searchInput: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    backgroundColor: '#f6ae63',
+    borderRadius: 30,
+    borderColor: '#865c4e',
+    borderWidth: 2,
+    marginBottom: 20,
   },
   writeTaskWrapper: {
     position: 'absolute',
